@@ -196,13 +196,13 @@ async function scrapeInactiveIssues(
         const abandonTemplate = this.templates.get("abandonWarning");
         assertDefined(abandonTemplate);
 
-        await this.issues.updateComment({
+        await this.issues.createComment({
           owner: repoOwner,
           repo: repoName,
-          comment_id: warning.id,
+          issue_number: number,
           body: abandonTemplate.format({
             assignee: assigneeList,
-            total: (ms + ims) / 86_400_000,
+            total: cycle / 86_400_000,
             username: this.cfg.auth.username,
           }),
         });
